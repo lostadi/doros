@@ -58,9 +58,10 @@ seven lineages, 1 Hz.
 
 Doros pauses whenever it is hidden. It draws at 60 fps only while you touch the
 screen, then 24 fps (20 in Battery Saver or on a low battery). Between drawn
-frames it sleeps instead of waking for every display refresh. On the author's
-phone, offscreen renders spend about 1.4 ms of simulation and 0.9 ms of
-geometry per drawn frame on average.
+frames it sleeps instead of waking for every display refresh. Measured on the
+author's phone during a real home-screen visit, the wallpaper's main thread
+spent about 4 ms per frame: roughly a quarter of one CPU core while touched at
+60 fps, and a tenth of a core at the idle 24 fps.
 
 ## Build and verify
 
