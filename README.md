@@ -20,27 +20,31 @@ same few equations:
 
 Bodies grow out of those rules on their own, with crystal cores, lacy rims and spiral arms. So do synchrony, fusion and division. Every line you see is a bond between two dots.
 
-The rules are not fixed either. Each dot carries part of its own rulebook as
-genes: how long its bonds like to be, how strongly it breathes, how hard it
-swims. Genes spread along bonds, are remembered and passed on when bodies fuse
-and divide, drift with each lineage, and lean toward whatever the hidden world
-favours where the dot swims. As the system evolves, so do the rules that
-drive it.
+The rules are not fixed either. A dot's colour is its kind: it sets how long
+its bonds like to be, how hard it breathes, how many bonds it holds, how fast
+it swims and how heavy it is. Colours flow as gradients and drift, each lineage
+keeping its own, so the rules that drive each dot keep changing as the system
+evolves. Vertices crowded past what their bonds can hold glow red and push
+apart, so crowded clusters unfold into new shapes instead of collapsing; and
+the screen is a window onto a larger pond that groups drift into and out of.
 
-<p align="center"><img src="docs/images/doros.jpg" width="300" alt="A Doros frame: glowing lattice bodies of bonded dots with spiral arms spread over a dark screen; three bodies fusing in the middle blend from orange through green to magenta and cyan"></p>
+<p align="center"><img src="docs/images/doros.jpg" width="300" alt="A Doros frame: open, lacy lattices of bonded dots in yellow, pink, magenta and violet gradients, spread over a dark screen, with a group entering at the right edge"></p>
 
-*An offscreen Android render at full phone resolution (1280 × 2856), 90 seconds after a random start. Not a photograph of a phone.*
+*An offscreen Android render at full phone resolution (1280 × 2856), 150 pond seconds after a random start, run at Drift 0.5 to get there sooner. Not a photograph of a phone.*
 
 The name puts a **D**, for *dynamic*, in front of *-oros*, from *kairos*: the right moment.
 
 ## What you see
 
-- **Bodies that make themselves.** Each lineage starts as a loose random cloud. Its dots knit into a lattice within seconds. Dots that can hold more bonds sort into the centre and become crystal cores, while dots that hold two or three make nets and lacy rims. Swirl strongest at the edge winds them into spiral arms.
-- **Fusion and division without a script.** Bodies that fall into step attract and knit together, and colour and rhythm blend along the new bonds. When their rhythms can no longer stay locked they drift apart again. Quorum sensing loosens any body that grows too large, and shed fragments drift back to the nearest crowd.
-- **Rules that evolve.** Bond length, breathing and swimming are genes. They change with each body's history and surroundings, so shapes and pulses keep shifting long after the start.
-- **The whole screen.** Bodies spread over all of it and start in a new random arrangement every time.
+- **Bodies that make themselves.** Each lineage starts as a loose random cloud. Its dots knit into an open lattice within seconds, and bodies take on rings, loops, crescents, curled arms and webs. Dots that can hold more bonds sort into crystal cores; dots that hold two or three make nets and lacy rims.
+- **No collapse.** A continuous exclusion principle stops any body crushing itself: the pull together fades as packing nears critical and pushes apart beyond it.
+- **Heat.** A vertex crowded per bond it holds glows red, its most repulsive state. Hot vertices push apart and link outward to cool ones, so clusters unfold and cool as they spread.
+- **Fusion and division without a script.** Bodies that fall into step attract and knit together. When their rhythms can no longer stay locked they drift apart again, and quorum sensing loosens any body that grows too large.
+- **Colour is kind.** Colour sets bond length, breathing, valence, swimming and mass. Every dot is drawn in its exact colour and every bond is a gradient between its dots, so colour moves through bodies steadily. Each lineage keeps its own drifting colour, so fused bodies show patches of their lineages.
+- **An open frame.** Groups of different sizes, shapes, densities, speeds and colours slide in from beyond the edges, and parts of bodies drift out; the pond keeps within a few percent of its size.
+- **Unison.** Dots move to their own rhythm, so a body in step strokes and swells as one, with waves from its core. A slowly turning projection from two hidden dimensions makes forces come and go.
 - **Depth.** Near bodies are larger and brighter. Each body is drawn as a slowly rocking, tilted dome, and home-page swipes shift near bodies farther than far ones.
-- **Colour that flows.** A gradient runs across each body and drifts smoothly. The hidden water carries colour from one body to another.
+- **Touch.** Drag to move and fling dots; tap and they startle outward in one bright beat.
 - **A companion.** Tap the wallpaper and nearby dots come to look, more eagerly the more you play. Come back after a while and they gather to meet you. They are calmer at night and sleepy on a low battery. With **Know my day**, the colours of the apps you spent time in arrive in the water when you return. That is read on the phone only; Doros has no internet permission.
 
 ## Controls
@@ -77,10 +81,12 @@ python3 tools/verify_reproducible.py        # tests + two clean builds, byte-com
 See [docs/BUILDING.md](docs/BUILDING.md) for the toolchain and signing. The
 simulation suites check, among other things, that:
 - **Lattice bookkeeping:** every bond is recorded exactly.
-- **Motion:** stays finite, on screen and calm.
+- **Motion:** stays finite, calm, and within the frame and its margin.
 - **Emergence:** the lattice builds itself, and bodies keep fusing and dividing.
 - **No collapse:** no body takes over the pond, and loose dust stays rare.
-- **Evolving rules:** genes keep changing and stay within bounds.
+- **Evolving rules:** colours, and with them properties, keep changing and stay within bounds.
+- **Heat:** crowded vertices run hotter than calm ones; hot vertices stay a minority.
+- **Open frame:** groups arrive, dots leave and cross the edges both ways, and the pond keeps its size.
 - **Allocation:** a simulation step allocates nothing.
 
 `tools/DorosProbe.java` renders real Android frames on a device and measures screen coverage, events, bond lengths, tap response and cost.

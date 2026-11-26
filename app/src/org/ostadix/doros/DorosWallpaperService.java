@@ -59,6 +59,8 @@ public final class DorosWallpaperService extends WallpaperService {
         private long lastHiddenAt, petDownTime;
         private float petDownX, petDownY;
         private boolean petTracking;
+        private double stirLastU, stirLastV;
+        private long stirLastTime;
         private Settings settings;
         private LatticeRenderer renderer;
         private boolean visible, surfaceReady, destroyed, scheduled;
@@ -301,6 +303,16 @@ public final class DorosWallpaperService extends WallpaperService {
         private void companionTouch(MotionEvent event, int width, int height) {
             int action = event.getActionMasked();
             double u = event.getX() / (double) width, v = event.getY() / (double) height;
+            // Every finger movement stirs the dots, swipes included.
+            long now = event.getEventTime();
+            if (action == MotionEvent.ACTION_DOWN) {
+                stirLastU = u; stirLastV = v; stirLastTime = now;
+                renderer.stir(u, v, 0, 0);
+            } else if (action == MotionEvent.ACTION_MOVE || action == MotionEvent.ACTION_UP) {
+                double seconds = Math.max(.008, (now - stirLastTime) / 1000.0);
+                renderer.stir(u, v, (u - stirLastU) / seconds, (v - stirLastV) / seconds);
+                stirLastU = u; stirLastV = v; stirLastTime = now;
+            }
             if (action == MotionEvent.ACTION_DOWN && event.getPointerCount() == 1) {
                 petTracking = true; petDownX = event.getX(); petDownY = event.getY();
                 petDownTime = event.getEventTime();
@@ -384,7 +396,11 @@ public final class DorosWallpaperService extends WallpaperService {
             double lockMs = 0, postMs = 0;
             try {
                 long lockStart = System.nanoTime();
-                if (holder.getSurface().isValid()) canvas = holder.lockHardwareCanvas();
+                // Hardware canvases draw vertex batches from Android 10 on; before
+                // that, the lattice is drawn on a software canvas.
+                if (holder.getSurface().isValid()) {
+                    canvas = Build.VERSION.SDK_INT >= 29 ? holder.lockHardwareCanvas() : holder.lockCanvas();
+                }
                 lockMs = (System.nanoTime() - lockStart) / 1e6;
                 if (canvas != null) {
                     hardware = canvas.isHardwareAccelerated();
